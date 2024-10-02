@@ -1,9 +1,8 @@
 package com.kerke3.simple_bank.service.impl;
 
-import com.kerke3.simple_bank.dto.UserAccountRequest;
-import com.kerke3.simple_bank.dto.UserAccountsResponse;
-import com.kerke3.simple_bank.dto.UserIdRequest;
-import com.kerke3.simple_bank.dto.UserResponse;
+import com.kerke3.simple_bank.dto.*;
+import com.kerke3.simple_bank.exceptions.InactiveUserException;
+import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 import com.kerke3.simple_bank.mapper.UserMapper;
 import com.kerke3.simple_bank.model.User;
 import com.kerke3.simple_bank.repository.UserRepository;
@@ -21,7 +20,7 @@ public class UserServiceImpl implements UserService {
         return UserMapper.mapToUserResponse(user);
     }
 
-    public String deactivateUser(UserIdRequest userIdRequest) throws Exception{
+    public SuccessResponse deactivateUser(UserIdRequest userIdRequest) throws UserNotFoundException, InactiveUserException {
         return userRepository.deactivate(userIdRequest.userId());
     }
 

@@ -1,13 +1,12 @@
 package com.kerke3.simple_bank.service;
 
-import com.kerke3.simple_bank.dto.UserAccountRequest;
-import com.kerke3.simple_bank.dto.UserAccountsResponse;
-import com.kerke3.simple_bank.dto.UserIdRequest;
-import com.kerke3.simple_bank.dto.UserResponse;
+import com.kerke3.simple_bank.dto.*;
+import com.kerke3.simple_bank.exceptions.InactiveUserException;
+import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 
 public interface UserService {
     UserResponse createUser(UserIdRequest userIdRequest);
-    String deactivateUser(UserIdRequest userIdRequest) throws Exception;
+    SuccessResponse deactivateUser(UserIdRequest userIdRequest) throws UserNotFoundException, InactiveUserException;
 
     UserAccountsResponse userAccounts(UserIdRequest userIdRequest);
 

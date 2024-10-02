@@ -4,8 +4,11 @@
  */
 package com.kerke3.simple_bank.repository;
 
+import com.kerke3.simple_bank.dto.SuccessResponse;
 import com.kerke3.simple_bank.dto.UserAccountRequest;
 import com.kerke3.simple_bank.dto.UserIdRequest;
+import com.kerke3.simple_bank.exceptions.InactiveUserException;
+import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 import com.kerke3.simple_bank.mapper.UserMapper;
 import com.kerke3.simple_bank.model.Account;
 import com.kerke3.simple_bank.model.User;
@@ -25,7 +28,7 @@ public class UserRepository {
     private static HashMap<String, User> users = new HashMap<>();
 
     public User createOrGet(UserIdRequest userIdRequest){
-        // TODO: should an de-activated user see his accounts ???
+        // TODO: should a deactivated user see his accounts ???
         String userId = userIdRequest.userId();
         if (users.containsKey(userId)){
             return users.get(userId);
@@ -43,6 +46,8 @@ public class UserRepository {
         String accountId = userAccountRequest.accountId();
         if (users.containsKey(userId)){
             User user = users.get(userId);
+            // Deactivate users should be able to open new accounts
+            checkUserActive(user);
             HashMap<String, Account> userAccounts = user.getAccounts();
             if(!userAccounts.containsKey(accountId)){
                 Account account = new Account(accountId);
@@ -60,17 +65,24 @@ public class UserRepository {
         The messaging strings here are messy, an ENUM can be used or a flag can be just sent back. The approach here is
         to just give clear messaging to the user
      */
-    public String deactivate(String accountId) throws Exception{
-        if (users.containsKey(accountId)){
-            User user = users.get(accountId);
+    public SuccessResponse deactivate(String userId) throws UserNotFoundException,InactiveUserException {
+        if (users.containsKey(userId)){
+            User user = users.get(userId);
             if(!user.getActive()){
-                return "Your account is already in-active, please contact support if you wish to reactivate your account.";
+                throw new InactiveUserException("Your user profile" + userId + " is already deactivated, please contact support if you wish to reactivate your account.");
             }
             user.setActive(false);
-            users.put(accountId, user);
-            return "Your account has been successfully deactivated, We hope to see you again!";
+            users.put(userId, user);
+            return UserMapper.mapToSuccessResponse("Your user profile has been successfully deactivated, We hope to see you again!");
+
         }else{
-            throw new Exception("Your account is not registered, please create an account first!");
+            throw new UserNotFoundException("Your user profile " + userId + " is not registered, please create an account first!");
+        }
+    }
+
+    private void checkUserActive(User user){
+        if (!user.getActive()){
+            throw new InactiveUserException("Your user profile" + user.getUserId() + " is deactivated, please contact support if you wish to reactivate your account.");
         }
     }
 

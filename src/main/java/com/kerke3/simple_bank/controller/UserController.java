@@ -1,9 +1,8 @@
 package com.kerke3.simple_bank.controller;
 
-import com.kerke3.simple_bank.dto.UserAccountRequest;
-import com.kerke3.simple_bank.dto.UserAccountsResponse;
-import com.kerke3.simple_bank.dto.UserIdRequest;
-import com.kerke3.simple_bank.dto.UserResponse;
+import com.kerke3.simple_bank.dto.*;
+import com.kerke3.simple_bank.exceptions.InactiveUserException;
+import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 import com.kerke3.simple_bank.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +23,8 @@ public class UserController {
     }
 
     @PostMapping(path = "/deactivate")
-    public ResponseEntity<String> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest){
-        try {
+    public ResponseEntity<SuccessResponse> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest) throws UserNotFoundException, InactiveUserException {
             return ResponseEntity.ok(accountServiceImpl.deactivateUser(userIdRequest));
-        }catch(Exception e){
-            String errorMessage = e.getMessage();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-        }
     }
 
     @GetMapping(path = "/open-account")
