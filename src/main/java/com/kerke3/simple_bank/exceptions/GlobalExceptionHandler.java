@@ -49,4 +49,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("error",ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidTransactionAmountException.class)
+    protected ResponseEntity<Object> handleInvalidTransactionAmount(InvalidTransactionAmountException ex, WebRequest request) {
+        Map<String, String> body = new HashMap<>();
+        body.put("error",ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 }

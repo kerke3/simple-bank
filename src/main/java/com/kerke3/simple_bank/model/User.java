@@ -3,6 +3,7 @@ package com.kerke3.simple_bank.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 
 @Getter
@@ -20,7 +21,9 @@ public class User {
        private String preciseBalance;
     */
 
-    private HashMap<String,Account> accounts = new HashMap<>();
+    private final HashMap<String,Account> accounts = new HashMap<>();
+
+    private final ArrayDeque<Transaction> transactions = new ArrayDeque<>();
 
     public User(String userId) {
         this.userId = userId;
@@ -33,5 +36,13 @@ public class User {
         this.active = true;
         Account account = new Account(accountId);
         this.accounts.put(account.getAccountId(),account);
+    }
+
+    public void updateAccounts(Account account){
+        this.accounts.put(account.getAccountId(), account);
+    }
+
+    public void addTransactions(Transaction transaction){
+        this.transactions.addFirst(transaction);
     }
 }

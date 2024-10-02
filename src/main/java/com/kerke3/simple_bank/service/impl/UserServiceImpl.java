@@ -1,10 +1,6 @@
 package com.kerke3.simple_bank.service.impl;
 
 import com.kerke3.simple_bank.dto.*;
-import com.kerke3.simple_bank.exceptions.InactiveUserException;
-import com.kerke3.simple_bank.exceptions.UserNotFoundException;
-import com.kerke3.simple_bank.mapper.UserMapper;
-import com.kerke3.simple_bank.model.User;
 import com.kerke3.simple_bank.repository.UserRepository;
 import com.kerke3.simple_bank.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +12,35 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public UserResponse createUser(UserIdRequest userIdRequest){
-        User user = userRepository.createOrGet(userIdRequest);
-        return UserMapper.mapToUserResponse(user);
+        return userRepository.createOrGet(userIdRequest.userId());
     }
 
-    public SuccessResponse deactivateUser(UserIdRequest userIdRequest) throws UserNotFoundException, InactiveUserException {
+    public SuccessResponse deactivateUser(UserIdRequest userIdRequest){
         return userRepository.deactivate(userIdRequest.userId());
     }
 
     public UserAccountsResponse openAccount(UserAccountRequest userAccountRequest){
-        User user = userRepository.openAccount(userAccountRequest);
-        return UserMapper.mapToUserAccountsResponse(user);
+        return userRepository.openAccount(userAccountRequest.userId(),userAccountRequest.accountId());
     }
 
     public UserAccountsResponse userAccounts(UserIdRequest userIdRequest){
-        User user = userRepository.createOrGet(userIdRequest);
-        return UserMapper.mapToUserAccountsResponse(user);
+        return userRepository.userAccounts(userIdRequest.userId());
+    }
+
+    public TransactionResponse deposit(DepositWithdrawRequest depositWithdrawRequest){
+        return userRepository.deposit(depositWithdrawRequest.userId(),depositWithdrawRequest.accountId(),depositWithdrawRequest.amount());
+    }
+
+    public TransactionResponse withdraw(DepositWithdrawRequest depositWithdrawRequest){
+        return userRepository.withdraw(depositWithdrawRequest.userId(),depositWithdrawRequest.accountId(),depositWithdrawRequest.amount());
+    }
+
+    public TransactionResponse transfer(UserTransferAmountRequest userTransferAmountRequest){
+        return userRepository.transfer(userTransferAmountRequest.userId(),userTransferAmountRequest.accountId(),
+                userTransferAmountRequest.recipientId(),userTransferAmountRequest.recipientAccountId(),userTransferAmountRequest.amount());
+    }
+
+    public UserTransactionsResponse userTransactions(UserIdRequest userIdRequest){
+        return userRepository.userTransactions(userIdRequest.userId());
     }
 }

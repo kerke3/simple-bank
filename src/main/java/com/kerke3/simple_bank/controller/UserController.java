@@ -1,8 +1,6 @@
 package com.kerke3.simple_bank.controller;
 
 import com.kerke3.simple_bank.dto.*;
-import com.kerke3.simple_bank.exceptions.InactiveUserException;
-import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 import com.kerke3.simple_bank.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +20,11 @@ public class UserController {
     }
 
     @PostMapping(path = "/deactivate")
-    public ResponseEntity<SuccessResponse> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest) throws UserNotFoundException, InactiveUserException {
+    public ResponseEntity<SuccessResponse> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest) {
             return ResponseEntity.ok(accountServiceImpl.deactivateUser(userIdRequest));
     }
 
-    @GetMapping(path = "/open-account")
+    @PostMapping(path = "/open-account")
     public ResponseEntity<UserAccountsResponse> openAccount(@RequestBody @Valid UserAccountRequest userAccountRequest){
         return ResponseEntity.ok(accountServiceImpl.openAccount(userAccountRequest));
 
@@ -35,6 +33,27 @@ public class UserController {
     @GetMapping(path = "/accounts")
     public ResponseEntity<UserAccountsResponse> userAccounts(@RequestBody @Valid UserIdRequest userIdRequest){
         return ResponseEntity.ok(accountServiceImpl.userAccounts(userIdRequest));
+
+    }
+
+    @PostMapping(path = "/deposit")
+    public ResponseEntity<TransactionResponse> deposit(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(accountServiceImpl.deposit(depositWithdrawRequest));
+    }
+
+    @PostMapping(path = "/withdraw")
+    public ResponseEntity<TransactionResponse> withdraw(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(accountServiceImpl.withdraw(depositWithdrawRequest));
+    }
+
+    @PostMapping(path = "/transfer")
+    public ResponseEntity<TransactionResponse> transfer(@RequestBody @Valid UserTransferAmountRequest userTransferAmountRequest){
+        return ResponseEntity.ok(accountServiceImpl.transfer(userTransferAmountRequest));
+    }
+
+    @GetMapping(path = "/transactions")
+    public ResponseEntity<UserTransactionsResponse> userTransactions(@RequestBody @Valid UserIdRequest userIdRequest){
+        return ResponseEntity.ok(accountServiceImpl.userTransactions(userIdRequest));
 
     }
 }
