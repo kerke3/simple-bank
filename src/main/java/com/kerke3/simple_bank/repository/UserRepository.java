@@ -7,6 +7,7 @@ package com.kerke3.simple_bank.repository;
 import com.kerke3.simple_bank.dto.*;
 import com.kerke3.simple_bank.enums.TransactionType;
 import com.kerke3.simple_bank.exceptions.InactiveUserException;
+import com.kerke3.simple_bank.exceptions.InvalidOperationException;
 import com.kerke3.simple_bank.exceptions.InvalidTransactionAmountException;
 import com.kerke3.simple_bank.exceptions.UserNotFoundException;
 import com.kerke3.simple_bank.mapper.UserMapper;
@@ -82,9 +83,8 @@ public class UserRepository {
     }
 
     public UserTransactionsResponse userTransactions(String userId){
-        if (!users.containsKey(userId)){
-            userNotFound(userId);
-        }
+        // user does not exist, no need to continue
+        userNotFound(userId);
         return UserMapper.mapToUserTransactionsResponse(users.get(userId));
     }
 
@@ -97,9 +97,7 @@ public class UserRepository {
         - Deposit amount into account (update account balance)
      */
     public TransactionResponse deposit(String userId, String accountId, double amount){
-        if (!users.containsKey(userId)){
-            userNotFound(userId);
-        }
+        userNotFound(userId);
         User user = users.get(userId);
         // Deactivated user, no need to continue
         checkUserActive(user);
@@ -121,9 +119,7 @@ public class UserRepository {
     - Deposit amount into account (update account balance)
  */
     public TransactionResponse withdraw(String userId, String accountId, double amount){
-        if (!users.containsKey(userId)){
-            userNotFound(userId);
-        }
+        userNotFound(userId);
         User user = users.get(userId);
         // Deactivated user, no need to continue
         checkUserActive(user);
@@ -139,26 +135,46 @@ public class UserRepository {
     }
 
     /*
+    - check if valid transfer
     - Check if user exists
+    - Check if recipient exists
     - Check if user is active
+    - check if recipient is active
     - Check if account exists
-    - check if account balance is higher than withdraw amount
-    - Create Transaction and append to users transactions
-    - Deposit amount into account (update account balance)
+    - check if recipient account exists
+    - check if account balance is higher than transfer amount
+    - Create Transaction and append to users transactions for both users
+    - Deposit amount into account (update account balance) for both accounts
     */
     public TransactionResponse transfer(String userId, String accountId,String recipientId, String recipientAccountId, double amount){
-        if (!users.containsKey(userId)){
-            userNotFound(userId);
-        }
+        // check if user is sending to himself and to the same account
+        checkifValidTransfer(userId,accountId,recipientId,recipientAccountId);
+        // check if users exist
+        userNotFound(userId);
+        recipientNotFound(recipientId);
+        // check if users are active
         User user = users.get(userId);
-        // Deactivated user, no need to continue
+        User recipient = users.get(recipientId);
         checkUserActive(user);
-        // Account doesn't exist, no need to continue
+        checkRecipientActive(recipient);
+        // check if accounts exist
         accountNotFound(user,accountId);
+        if (userId.equals(recipientId)) {
+            accountNotFound(user, recipientAccountId);
+        } else {
+            recipientAccountNotFound(recipient, recipientAccountId);
+        }
+        // get accounts
         Account account = user.getAccounts().get(accountId);
+        Account recipientAccount = recipient.getAccounts().get(recipientAccountId);
         // If balance is insufficient, no need to continue
         checkBalance(accountId,account.getBalance(),amount);
-        Transaction transaction = UserMapper.mapToTransaction(amount, TransactionType.WITHDRAWAL,user,user,account,account);
+        // process for recipient
+        Transaction recipientTransaction = UserMapper.mapToTransaction(amount, TransactionType.CREDIT,user,recipient,account,recipientAccount);
+        recipient.addTransactions(recipientTransaction);
+        recipientAccount.setBalance(recipientAccount.getBalance() + amount);
+        // process for user
+        Transaction transaction = UserMapper.mapToTransaction(amount, TransactionType.DEBIT,user,recipient,account,recipientAccount);
         user.addTransactions(transaction);
         account.setBalance(account.getBalance() - amount);
         return UserMapper.mapToDepositWithdrawResponse(userId,account,transaction);
@@ -174,22 +190,46 @@ public class UserRepository {
         }
     }
 
+    private void checkRecipientActive(User recipient){
+        if (!recipient.getActive()){
+            throw new InactiveUserException("Your recipient profile " + recipient.getUserId() + " is deactivated, Transfers to inactive profiles are not allowed.");
+        }
+    }
+
     private void userNotFound(String userId){
         if (!users.containsKey(userId)) {
             throw new UserNotFoundException("Your user profile " + userId + " is not registered, please create a profile first!");
         }
     }
+    private void recipientNotFound(String recipientId){
+        if (!users.containsKey(recipientId)) {
+            throw new UserNotFoundException("Your recipient profile " + recipientId + " does not exist, please refer to the recipient for the correct ID.");
+        }
+    }
 
     private void accountNotFound(User user,String accountId){
         if(!user.getAccounts().containsKey(accountId)) {
-            throw new UserNotFoundException("Your user profile " + user.getUserId() + " does not have" + accountId + " account, please open the account first.");
+            throw new UserNotFoundException("Your user profile " + user.getUserId() + " does not have " + accountId + " account, please open the account first.");
+        }
+    }
+    private void recipientAccountNotFound(User recipient,String recipientAccountId){
+        if(!recipient.getAccounts().containsKey(recipientAccountId)) {
+            throw new UserNotFoundException("Your recipient profile " + recipient.getUserId() + " does not have " + recipientAccountId + " account, please refer to the recipient for the correct account ID.");
         }
     }
 
     private void checkBalance(String accountId,double balance, double amount) {
         if (amount > balance){
-            throw new InvalidTransactionAmountException(String.format("Your %s account current balance is %.2f, it is not sufficient to withdraw %.2f", accountId,balance,amount));
+            throw new InvalidTransactionAmountException(String.format("Your %s account current balance is %.2f, it is not sufficient for transaction amount %.2f", accountId,balance,amount));
         }
     }
+
+    private void checkifValidTransfer(String userId, String accountId, String recipientId, String recipientAccountId) {
+        if (userId.equals(recipientId) && accountId.equals(recipientAccountId)){
+            throw new InvalidOperationException("Am I a joke to you ???");
+        }
+    }
+
+
 
 }

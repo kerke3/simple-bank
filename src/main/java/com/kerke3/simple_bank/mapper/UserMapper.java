@@ -8,7 +8,6 @@ import com.kerke3.simple_bank.model.Transaction;
 import com.kerke3.simple_bank.model.User;
 
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserMapper {

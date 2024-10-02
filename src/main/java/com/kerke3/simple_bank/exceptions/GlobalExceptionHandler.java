@@ -56,4 +56,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("error",ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidOperationException.class)
+    protected ResponseEntity<Object> handleInvalidOperation(InvalidOperationException ex, WebRequest request) {
+        Map<String, String> body = new HashMap<>();
+        body.put("error",ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 }
