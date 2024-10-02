@@ -25,7 +25,7 @@ public class UserRepository {
         HashMap, however we can use ConcurrentHashMap if concurrency is needed and implements locks where needed.
         This will mimic a database transactional isolation.
     */
-    private static HashMap<String, User> users = new HashMap<>();
+    private final static HashMap<String, User> users = new HashMap<>();
 
     public User createOrGet(UserIdRequest userIdRequest){
         // TODO: should a deactivated user see his accounts ???
