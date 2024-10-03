@@ -1,0 +1,7 @@
+version: "3.4"
+services:
+  simple-bank:
+    build: .
+    image: kerke3/simple-bank:dev
+    ports:
+      - "8080:8080"
