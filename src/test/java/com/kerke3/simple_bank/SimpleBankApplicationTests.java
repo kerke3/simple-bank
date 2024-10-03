@@ -2,8 +2,8 @@ package com.kerke3.simple_bank;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kerke3.simple_bank.dto.StandardResponse;
-import com.kerke3.simple_bank.dto.UserIdRequest;
+import com.kerke3.simple_bank.common.dto.StandardResponse;
+import com.kerke3.simple_bank.common.dto.UserIdRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
