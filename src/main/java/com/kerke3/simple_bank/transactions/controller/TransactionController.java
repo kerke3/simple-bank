@@ -1,9 +1,10 @@
 package com.kerke3.simple_bank.transactions.controller;
 
 
-import com.kerke3.simple_bank.common.dto.StandardResponse;
 import com.kerke3.simple_bank.common.dto.UserIdRequest;
 import com.kerke3.simple_bank.transactions.dto.DepositWithdrawRequest;
+import com.kerke3.simple_bank.transactions.dto.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.UserTransactionsResponse;
 import com.kerke3.simple_bank.transactions.dto.UserTransferAmountRequest;
 import com.kerke3.simple_bank.transactions.service.TransactionService;
 import jakarta.validation.Valid;
@@ -20,23 +21,23 @@ public class TransactionController {
 
 
     @PostMapping(path = "/deposit")
-    public ResponseEntity<StandardResponse> deposit(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
-        return ResponseEntity.ok(new StandardResponse(true, transactionService.deposit(depositWithdrawRequest),null));
+    public ResponseEntity<TransactionResponse> deposit(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(transactionService.deposit(depositWithdrawRequest));
     }
 
     @PostMapping(path = "/withdraw")
-    public ResponseEntity<StandardResponse> withdraw(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
-        return ResponseEntity.ok(new StandardResponse(true, transactionService.withdraw(depositWithdrawRequest),null));
+    public ResponseEntity<TransactionResponse> withdraw(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(transactionService.withdraw(depositWithdrawRequest));
     }
 
     @PostMapping(path = "/transfer")
-    public ResponseEntity<StandardResponse> transfer(@RequestBody @Valid UserTransferAmountRequest userTransferAmountRequest){
-        return ResponseEntity.ok(new StandardResponse(true, transactionService.transfer(userTransferAmountRequest),null));
+    public ResponseEntity<TransactionResponse> transfer(@RequestBody @Valid UserTransferAmountRequest userTransferAmountRequest){
+        return ResponseEntity.ok(transactionService.transfer(userTransferAmountRequest));
     }
 
     @GetMapping(path = "/transactions")
-    public ResponseEntity<StandardResponse> userTransactions(@Valid UserIdRequest userIdRequest){
-        return ResponseEntity.ok(new StandardResponse(true, transactionService.userTransactions(userIdRequest),null));
+    public ResponseEntity<UserTransactionsResponse> userTransactions(@Valid UserIdRequest userIdRequest){
+        return ResponseEntity.ok(transactionService.userTransactions(userIdRequest));
 
     }
 }
