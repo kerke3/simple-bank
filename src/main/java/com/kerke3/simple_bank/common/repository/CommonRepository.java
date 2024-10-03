@@ -60,7 +60,7 @@ public class CommonRepository {
         }
     }
 
-    public static void checkifValidTransfer(String userId, String accountId, String recipientId, String recipientAccountId) {
+    public static void checkIfValidTransfer(String userId, String accountId, String recipientId, String recipientAccountId) {
         if (userId.equals(recipientId) && accountId.equals(recipientAccountId)){
             throw new InvalidOperationException("Am I a joke to you ???");
         }

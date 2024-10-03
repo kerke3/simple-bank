@@ -88,7 +88,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     */
     public TransactionResponse transfer(String userId, String accountId, String recipientId, String recipientAccountId, double amount){
         // check if user is sending to himself and to the same account
-        checkifValidTransfer(userId,accountId,recipientId,recipientAccountId);
+        checkIfValidTransfer(userId,accountId,recipientId,recipientAccountId);
         // check if users exist
         userNotFound(userId);
         recipientNotFound(recipientId);

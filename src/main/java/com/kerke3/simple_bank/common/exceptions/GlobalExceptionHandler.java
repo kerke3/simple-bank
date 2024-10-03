@@ -34,13 +34,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(UserNotFoundException.class)
-    protected ResponseEntity<Object> handlUserNotFound(UserNotFoundException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleUserNotFound(UserNotFoundException ex, WebRequest request) {
         List<String> errors = Arrays.asList(ex.getMessage());
         return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InactiveUserException.class)
-    protected ResponseEntity<Object> handlInactiveUser(InactiveUserException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleInactiveUser(InactiveUserException ex, WebRequest request) {
         List<String> errors = Arrays.asList(ex.getMessage());
         return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }

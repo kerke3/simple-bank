@@ -4,8 +4,6 @@ import com.kerke3.simple_bank.common.dto.UserIdRequest;
 import com.kerke3.simple_bank.transactions.dto.*;
 import com.kerke3.simple_bank.transactions.repository.TransactionRepository;
 import com.kerke3.simple_bank.transactions.service.TransactionService;
-import com.kerke3.simple_bank.users.dto.SuccessResponse;
-import com.kerke3.simple_bank.users.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -5,14 +5,9 @@
 package com.kerke3.simple_bank.users.repository.impl;
 
 
-import com.kerke3.simple_bank.accounts.dto.UserAccountsResponse;
-import com.kerke3.simple_bank.transactions.dto.TransactionResponse;
-import com.kerke3.simple_bank.transactions.dto.UserTransactionsResponse;
-import com.kerke3.simple_bank.transactions.enums.TransactionType;
-import com.kerke3.simple_bank.transactions.model.Transaction;
+
 import com.kerke3.simple_bank.users.dto.*;
 import com.kerke3.simple_bank.users.mapper.UserMapper;
-import com.kerke3.simple_bank.accounts.model.Account;
 import com.kerke3.simple_bank.users.model.User;
 import com.kerke3.simple_bank.users.repository.UserRepository;
 import lombok.NoArgsConstructor;
