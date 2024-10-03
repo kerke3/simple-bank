@@ -8,6 +8,11 @@ import com.kerke3.simple_bank.users.model.User;
 
 import java.util.HashMap;
 
+/*
+    This is a messy but quick way of doing things, a better way is make users private and manage with setters and getters,
+    also the Util can be moved to another class and users can be passed as a parameter
+ */
+
 public class CommonRepository {
     /*
     As our application will run on the main thread only, we can use a simple

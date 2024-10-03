@@ -25,7 +25,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     public UserTransactionsResponse userTransactions(String userId){
         // user does not exist, no need to continue
         userNotFound(userId);
-        return TransactionMapper.mapToUserTransactionsResponse(users.get(userId));
+        User user = users.get(userId);
+        // Deactivated user, no need to continue, deactivated users shouldn't see their transactions ???
+        checkUserActive(user);
+        return TransactionMapper.mapToUserTransactionsResponse(user);
     }
 
 
