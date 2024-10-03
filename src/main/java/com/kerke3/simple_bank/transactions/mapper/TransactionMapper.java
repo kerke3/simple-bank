@@ -20,10 +20,6 @@ public class TransactionMapper {
         return new TransactionResponse(userId,account,transactionLayer);
     }
 
-    public static Account mapToAccount(String accountId) {
-        return new Account(accountId);
-    }
-
     public static Transaction mapToTransaction(double amount, TransactionType transactionType, User sendingUser, User receivingUser, Account sendingAccount, Account receievingAccount) {
         return new Transaction(amount,transactionType,sendingUser,receivingUser,sendingAccount,receievingAccount);
     }

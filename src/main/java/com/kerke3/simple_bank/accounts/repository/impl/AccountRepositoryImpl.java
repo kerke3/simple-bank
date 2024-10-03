@@ -13,7 +13,6 @@ import com.kerke3.simple_bank.users.model.User;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 
 import static com.kerke3.simple_bank.common.repository.CommonRepository.*;
 
