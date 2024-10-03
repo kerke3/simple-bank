@@ -337,7 +337,7 @@ You can import the postman collection inside the "postman" folder to make reques
         }
     }
     ```
-### Response errors
+### Error Responses
 - **Description**: Errors are are always returned as an Array of errors.
 - **Sameple Request**:
     ```bash
