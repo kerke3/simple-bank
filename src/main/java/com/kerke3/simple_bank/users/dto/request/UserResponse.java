@@ -1,4 +1,4 @@
-package com.kerke3.simple_bank.users.dto;
+package com.kerke3.simple_bank.users.dto.request;
 
 import com.kerke3.simple_bank.accounts.model.Account;
 

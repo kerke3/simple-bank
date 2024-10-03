@@ -1,8 +1,8 @@
 package com.kerke3.simple_bank.users.controller;
 
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
-import com.kerke3.simple_bank.users.dto.SuccessResponse;
-import com.kerke3.simple_bank.users.dto.UserResponse;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
+import com.kerke3.simple_bank.users.dto.response.SuccessResponse;
+import com.kerke3.simple_bank.users.dto.request.UserResponse;
 import com.kerke3.simple_bank.users.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

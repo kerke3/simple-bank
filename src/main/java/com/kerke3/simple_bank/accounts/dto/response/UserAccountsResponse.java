@@ -1,4 +1,4 @@
-package com.kerke3.simple_bank.accounts.dto;
+package com.kerke3.simple_bank.accounts.dto.response;
 
 
 import com.kerke3.simple_bank.accounts.model.Account;

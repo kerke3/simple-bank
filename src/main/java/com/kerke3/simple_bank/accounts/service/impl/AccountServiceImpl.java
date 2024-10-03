@@ -1,10 +1,10 @@
 package com.kerke3.simple_bank.accounts.service.impl;
 
-import com.kerke3.simple_bank.accounts.dto.UserAccountRequest;
-import com.kerke3.simple_bank.accounts.dto.UserAccountsResponse;
+import com.kerke3.simple_bank.accounts.dto.request.UserAccountRequest;
+import com.kerke3.simple_bank.accounts.dto.response.UserAccountsResponse;
 import com.kerke3.simple_bank.accounts.repository.AccountRepository;
 import com.kerke3.simple_bank.accounts.service.AccountService;
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

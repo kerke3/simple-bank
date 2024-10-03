@@ -1,11 +1,11 @@
 package com.kerke3.simple_bank.transactions.controller;
 
 
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
-import com.kerke3.simple_bank.transactions.dto.DepositWithdrawRequest;
-import com.kerke3.simple_bank.transactions.dto.TransactionResponse;
-import com.kerke3.simple_bank.transactions.dto.UserTransactionsResponse;
-import com.kerke3.simple_bank.transactions.dto.UserTransferAmountRequest;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
+import com.kerke3.simple_bank.transactions.dto.request.DepositWithdrawRequest;
+import com.kerke3.simple_bank.transactions.dto.response.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.response.UserTransactionsResponse;
+import com.kerke3.simple_bank.transactions.dto.request.UserTransferAmountRequest;
 import com.kerke3.simple_bank.transactions.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -6,7 +6,8 @@ package com.kerke3.simple_bank.transactions.repository.impl;
 
 
 import com.kerke3.simple_bank.accounts.model.Account;
-import com.kerke3.simple_bank.transactions.dto.*;
+import com.kerke3.simple_bank.transactions.dto.response.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.response.UserTransactionsResponse;
 import com.kerke3.simple_bank.transactions.enums.TransactionType;
 import com.kerke3.simple_bank.transactions.mapper.TransactionMapper;
 import com.kerke3.simple_bank.transactions.model.Transaction;

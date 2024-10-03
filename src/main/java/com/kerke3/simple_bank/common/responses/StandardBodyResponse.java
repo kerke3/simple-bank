@@ -1,6 +1,6 @@
 package com.kerke3.simple_bank.common.responses;
 
-import com.kerke3.simple_bank.common.dto.StandardResponse;
+import com.kerke3.simple_bank.common.dto.response.StandardResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.*;
 import org.springframework.http.server.ServerHttpRequest;

@@ -1,4 +1,4 @@
-package com.kerke3.simple_bank.accounts.dto;
+package com.kerke3.simple_bank.accounts.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

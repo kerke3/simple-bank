@@ -1,7 +1,8 @@
 package com.kerke3.simple_bank.transactions.repository;
 
 
-import com.kerke3.simple_bank.transactions.dto.*;
+import com.kerke3.simple_bank.transactions.dto.response.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.response.UserTransactionsResponse;
 
 public interface TransactionRepository {
 

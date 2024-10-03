@@ -2,7 +2,8 @@ package com.kerke3.simple_bank.transactions.mapper;
 
 
 import com.kerke3.simple_bank.accounts.model.Account;
-import com.kerke3.simple_bank.transactions.dto.*;
+import com.kerke3.simple_bank.transactions.dto.response.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.response.UserTransactionsResponse;
 import com.kerke3.simple_bank.transactions.enums.TransactionType;
 import com.kerke3.simple_bank.transactions.model.Transaction;
 import com.kerke3.simple_bank.transactions.dto.layers.TransactionLayer;

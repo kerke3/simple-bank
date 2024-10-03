@@ -1,7 +1,8 @@
 package com.kerke3.simple_bank.users.service.impl;
 
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
-import com.kerke3.simple_bank.users.dto.*;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
+import com.kerke3.simple_bank.users.dto.request.UserResponse;
+import com.kerke3.simple_bank.users.dto.response.SuccessResponse;
 import com.kerke3.simple_bank.users.repository.UserRepository;
 import com.kerke3.simple_bank.users.service.UserService;
 import lombok.RequiredArgsConstructor;

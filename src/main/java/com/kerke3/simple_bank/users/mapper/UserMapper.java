@@ -1,7 +1,8 @@
 package com.kerke3.simple_bank.users.mapper;
 
 
-import com.kerke3.simple_bank.users.dto.*;
+import com.kerke3.simple_bank.users.dto.request.UserResponse;
+import com.kerke3.simple_bank.users.dto.response.SuccessResponse;
 import com.kerke3.simple_bank.users.model.User;
 
 

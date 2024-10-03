@@ -1,4 +1,4 @@
-package com.kerke3.simple_bank.transactions.dto;
+package com.kerke3.simple_bank.transactions.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

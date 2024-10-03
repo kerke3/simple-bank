@@ -1,4 +1,4 @@
-package com.kerke3.simple_bank.common.dto;
+package com.kerke3.simple_bank.common.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

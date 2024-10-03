@@ -3,7 +3,7 @@ package com.kerke3.simple_bank.common.exceptions;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.kerke3.simple_bank.common.dto.StandardResponse;
+import com.kerke3.simple_bank.common.dto.response.StandardResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

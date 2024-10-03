@@ -1,7 +1,10 @@
 package com.kerke3.simple_bank.transactions.service.impl;
 
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
-import com.kerke3.simple_bank.transactions.dto.*;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
+import com.kerke3.simple_bank.transactions.dto.request.DepositWithdrawRequest;
+import com.kerke3.simple_bank.transactions.dto.request.UserTransferAmountRequest;
+import com.kerke3.simple_bank.transactions.dto.response.TransactionResponse;
+import com.kerke3.simple_bank.transactions.dto.response.UserTransactionsResponse;
 import com.kerke3.simple_bank.transactions.repository.TransactionRepository;
 import com.kerke3.simple_bank.transactions.service.TransactionService;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.kerke3.simple_bank.accounts.controller;
 
 
-import com.kerke3.simple_bank.accounts.dto.*;
+import com.kerke3.simple_bank.accounts.dto.response.UserAccountsResponse;
 import com.kerke3.simple_bank.accounts.service.AccountService;
-import com.kerke3.simple_bank.common.dto.UserIdRequest;
+import com.kerke3.simple_bank.common.dto.request.UserIdRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
