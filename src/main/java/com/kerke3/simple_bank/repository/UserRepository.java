@@ -38,19 +38,12 @@ public class UserRepository {
             return UserMapper.mapToUserResponse(user);
         }
     }
-    /*
-        If a user is trying to open an account, but he has no profile in the system,
-        then create a profile and an account with the desired ID
-     */
+
     public UserAccountsResponse userAccounts(String userId){
         // TODO: should a deactivated user see his accounts ???
-        if (users.containsKey(userId)){
-            return UserMapper.mapToUserAccountsResponse(users.get(userId));
-        }else{
-            User user = UserMapper.mapToUser(userId);
-            users.put(userId, user);
-            return UserMapper.mapToUserAccountsResponse(user);
-        }
+        // Check if user exists
+        userNotFound(userId);
+        return UserMapper.mapToUserAccountsResponse(users.get(userId));
     }
 
     public SuccessResponse deactivate(String userId) throws UserNotFoundException,InactiveUserException {
@@ -63,23 +56,17 @@ public class UserRepository {
     }
 
     public UserAccountsResponse openAccount(String userId, String accountId){
-        /* If the user already exists, then open a new account,
-            if not then create a new user with the account ID provided.
-        */
-        if (users.containsKey(userId)){
-            User user = users.get(userId);
-            // Deactivate users should be able to open new accounts
-            checkUserActive(user);
-            if(!user.getAccounts().containsKey(accountId)){
-                Account account = UserMapper.mapToAccount(accountId);
-                user.updateAccounts(account);
-            }
-            return UserMapper.mapToUserAccountsResponse(user);
-        }else{
-            User user = UserMapper.mapToUser(userId, accountId);
-            users.put(userId, user);
-            return UserMapper.mapToUserAccountsResponse(user);
+
+        // user does not exist, no need to continue
+        userNotFound(userId);
+        User user = users.get(userId);
+        // Deactivate users should be able to open new accounts
+        checkUserActive(user);
+        if(!user.getAccounts().containsKey(accountId)){
+            Account account = UserMapper.mapToAccount(accountId);
+            user.updateAccounts(account);
         }
+        return UserMapper.mapToUserAccountsResponse(user);
     }
 
     public UserTransactionsResponse userTransactions(String userId){

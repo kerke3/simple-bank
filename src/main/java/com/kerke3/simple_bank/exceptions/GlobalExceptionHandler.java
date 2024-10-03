@@ -1,9 +1,9 @@
 package com.kerke3.simple_bank.exceptions;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import com.kerke3.simple_bank.dto.StandardResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
                                                                   HttpStatusCode status, WebRequest request) {
-        Map<String, List<String>> body = new HashMap<>();
 
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
@@ -32,35 +31,29 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
 
-        body.put("errors", errors);
-
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handlUserNotFound(UserNotFoundException ex, WebRequest request) {
-        Map<String, String> body = new HashMap<>();
-        body.put("error",ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        List<String> errors = Arrays.asList(ex.getMessage());
+        return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InactiveUserException.class)
     protected ResponseEntity<Object> handlInactiveUser(InactiveUserException ex, WebRequest request) {
-        Map<String, String> body = new HashMap<>();
-        body.put("error",ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        List<String> errors = Arrays.asList(ex.getMessage());
+        return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidTransactionAmountException.class)
     protected ResponseEntity<Object> handleInvalidTransactionAmount(InvalidTransactionAmountException ex, WebRequest request) {
-        Map<String, String> body = new HashMap<>();
-        body.put("error",ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        List<String> errors = Arrays.asList(ex.getMessage());
+        return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidOperationException.class)
     protected ResponseEntity<Object> handleInvalidOperation(InvalidOperationException ex, WebRequest request) {
-        Map<String, String> body = new HashMap<>();
-        body.put("error",ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        List<String> errors = Arrays.asList(ex.getMessage());
+        return new ResponseEntity<>(new StandardResponse(false,null,errors), HttpStatus.BAD_REQUEST);
     }
 }

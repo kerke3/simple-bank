@@ -15,9 +15,6 @@ public class UserMapper {
     public static User mapToUser(String userId){
         return new User(userId);
     }
-    public static User mapToUser(String userId, String accountId){
-        return new User(userId, accountId);
-    }
 
     public static UserResponse mapToUserResponse(User user){
         return new UserResponse(user.getUserId(), user.getActive(), user.getAccounts());

@@ -14,12 +14,7 @@ public class User {
     */
     private String userId;
     private Boolean active;
-    /* From my experience it is better to store potentially large number with extreme precision as strings,
-       but this will not be needed here for our simple example. A way to represent things
 
-       private BigDecimal balance;
-       private String preciseBalance;
-    */
 
     private final HashMap<String,Account> accounts = new HashMap<>();
 
@@ -29,12 +24,6 @@ public class User {
         this.userId = userId;
         this.active = true;
         Account account = new Account();
-        this.accounts.put(account.getAccountId(),account);
-    }
-    public User(String userId, String accountId) {
-        this.userId = userId;
-        this.active = true;
-        Account account = new Account(accountId);
         this.accounts.put(account.getAccountId(),account);
     }
 

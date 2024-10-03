@@ -8,52 +8,52 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceImpl accountServiceImpl;
 
     @PostMapping(path = "/create")
-    public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserIdRequest userIdRequest){
-        return ResponseEntity.ok(accountServiceImpl.createUser(userIdRequest));
+    public ResponseEntity<StandardResponse> createUser(@RequestBody @Valid UserIdRequest userIdRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.createUser(userIdRequest),null));
     }
 
     @PostMapping(path = "/deactivate")
-    public ResponseEntity<SuccessResponse> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest) {
-            return ResponseEntity.ok(accountServiceImpl.deactivateUser(userIdRequest));
+    public ResponseEntity<StandardResponse> deactivateUser(@RequestBody @Valid UserIdRequest userIdRequest) {
+            return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.deactivateUser(userIdRequest),null));
     }
 
     @PostMapping(path = "/open-account")
-    public ResponseEntity<UserAccountsResponse> openAccount(@RequestBody @Valid UserAccountRequest userAccountRequest){
-        return ResponseEntity.ok(accountServiceImpl.openAccount(userAccountRequest));
+    public ResponseEntity<StandardResponse> openAccount(@RequestBody @Valid UserAccountRequest userAccountRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.openAccount(userAccountRequest),null));
 
     }
 
     @GetMapping(path = "/accounts")
-    public ResponseEntity<UserAccountsResponse> userAccounts(@RequestBody @Valid UserIdRequest userIdRequest){
-        return ResponseEntity.ok(accountServiceImpl.userAccounts(userIdRequest));
+    public ResponseEntity<StandardResponse> userAccounts(@Valid UserIdRequest userIdRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.userAccounts(userIdRequest),null));
 
     }
 
     @PostMapping(path = "/deposit")
-    public ResponseEntity<TransactionResponse> deposit(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
-        return ResponseEntity.ok(accountServiceImpl.deposit(depositWithdrawRequest));
+    public ResponseEntity<StandardResponse> deposit(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.deposit(depositWithdrawRequest),null));
     }
 
     @PostMapping(path = "/withdraw")
-    public ResponseEntity<TransactionResponse> withdraw(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
-        return ResponseEntity.ok(accountServiceImpl.withdraw(depositWithdrawRequest));
+    public ResponseEntity<StandardResponse> withdraw(@RequestBody @Valid DepositWithdrawRequest depositWithdrawRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.withdraw(depositWithdrawRequest),null));
     }
 
     @PostMapping(path = "/transfer")
-    public ResponseEntity<TransactionResponse> transfer(@RequestBody @Valid UserTransferAmountRequest userTransferAmountRequest){
-        return ResponseEntity.ok(accountServiceImpl.transfer(userTransferAmountRequest));
+    public ResponseEntity<StandardResponse> transfer(@RequestBody @Valid UserTransferAmountRequest userTransferAmountRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.transfer(userTransferAmountRequest),null));
     }
 
     @GetMapping(path = "/transactions")
-    public ResponseEntity<UserTransactionsResponse> userTransactions(@RequestBody @Valid UserIdRequest userIdRequest){
-        return ResponseEntity.ok(accountServiceImpl.userTransactions(userIdRequest));
+    public ResponseEntity<StandardResponse> userTransactions(@Valid UserIdRequest userIdRequest){
+        return ResponseEntity.ok(new StandardResponse(true,accountServiceImpl.userTransactions(userIdRequest),null));
 
     }
 }
