@@ -12,7 +12,8 @@ import java.util.HashMap;
 @Setter
 public class User {
     /* Account ID will be supplied by the user at the creation of the account to act as unique identifier,
-       that way we can prevent users from creating multiple accounts.
+       that way we can prevent users from creating multiple accounts. In typical cases a user related identifier
+       such as mobile number is used to represent a unique user.
     */
     private String userId;
     private Boolean active;

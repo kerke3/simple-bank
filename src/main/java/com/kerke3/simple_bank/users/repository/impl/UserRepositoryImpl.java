@@ -36,6 +36,8 @@ public class UserRepositoryImpl implements UserRepository {
         // Check if user exists
         userNotFound(userId);
         User user = users.get(userId);
+        // If this is a database call to set active, we should not make an unnecessary call
+        checkUserActive(user);
         user.setActive(false);
         users.put(userId, user);
         return UserMapper.mapToSuccessResponse("Your user profile has been successfully deactivated, We hope to see you again!");
