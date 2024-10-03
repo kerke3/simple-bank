@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kerke3.simple_bank.dto.StandardResponse;
 import com.kerke3.simple_bank.dto.UserIdRequest;
-import com.kerke3.simple_bank.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.HashMap;
-import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,7 +37,7 @@ class SimpleBankApplicationTests {
 		String userRequestJSON = objectMapper.writeValueAsString(badRequestBody);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/account/create").contentType(MediaType.APPLICATION_JSON).content(userRequestJSON))
 				.andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
-		StandardResponse response = objectMapper.readValue(result.getResponse().getContentAsString(),new TypeReference<StandardResponse>(){});
+		StandardResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
 		Assertions.assertFalse(response.success());
 	}
 	@Test
@@ -49,7 +47,7 @@ class SimpleBankApplicationTests {
 		String userRequestJSON = objectMapper.writeValueAsString(userIdRequest);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/account/create").contentType(MediaType.APPLICATION_JSON).content(userRequestJSON))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-		StandardResponse response = objectMapper.readValue(result.getResponse().getContentAsString(),new TypeReference<StandardResponse>(){});
+		StandardResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
 		Assertions.assertTrue(response.success());
 	}
 
